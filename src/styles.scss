@@ -1,0 +1,17 @@
+body.no-scroll {  
+  overflow: hidden;  
+}  
+
+.modal {  
+  display: none;  
+  // Дальше стилизуйте ваше модальное окно...  
+}  
+
+.modal.open {  
+  display: block;  
+  // Добавьте анимацию открытия  
+}  
+
+.error {  
+  color: red;  
+}
