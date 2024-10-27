@@ -30,6 +30,11 @@ body {
   color: $textButton-color;
 }
 
+body.modal-open {  
+  overflow: hidden;
+  padding-right: 15px;
+}  
+
 a {
   display: block;
   text-decoration: none;
@@ -53,7 +58,7 @@ img {
 }
 
 html, body {
-  height: 100%;
+  min-height: 150vh;
 }
 
 .container {
