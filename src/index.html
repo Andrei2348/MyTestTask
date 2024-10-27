@@ -9,25 +9,25 @@
 </head>
 <body>
   <div class="container">
-    <button class="open-modal">Открыть форму обратной связи</button>
-    <div class="status-message" style="display: none;"></div>
-    <div class="modal" style="display: none;">
-      <div class="modal-content">
-        <span class="close">&times;</span>
+    <button class="test__open-modal open-modal">Открыть форму обратной связи</button>
+    <div class="test__status-message status-message" style="display: none;"></div>
+    <div class="test__modal modal" style="display: none;">
+      <div class="test__modal-content">
+        <span class="test__close-button close">&times;</span>
         <form id="contact-form">
-          <label for="name">Имя</label>
-          <input class="contact__input" type="text" id="name" name="name" placeholder="Имя" required>
+          <label class='test__label' for="name">Имя</label>
+          <input class="test__input" type="text" id="name" name="name" placeholder="Имя" required>
           
-          <label for="email">E-mail</label>
-          <input class="contact__input" type="email" id="email" name="email" placeholder="E-mail" required>
+          <label class='test__label' for="email">E-mail</label>
+          <input class="test__input" type="email" id="email" name="email" placeholder="E-mail" required>
           
-          <label for="phone">Телефон</label>
-          <input class="contact__input" type="text" id="phone" name="phone" placeholder="Телефон" required>
+          <label class='test__label' for="phone">Телефон</label>
+          <input class="test__input" type="text" id="phone" name="phone" placeholder="Телефон" required>
           
-          <label for="message">Сообщение</label>
-          <textarea class="contact__area" id="message" name="message" placeholder="Сообщение" required></textarea>
+          <label class='test__label' for="message">Сообщение</label>
+          <textarea class="test__area" id="message" name="message" placeholder="Сообщение" required></textarea>
           
-          <button type="submit" id="submit-button" disabled>Отправить</button>
+          <button class='test__submit-button' type="submit" id="submit-button" disabled>Отправить</button>
         </form>
       </div>
     </div>

@@ -1,5 +1,5 @@
-import IMask from 'imask'
-import './style.scss'
+import IMask from 'imask';
+import './style.scss';
 
 // Инициализация маски для телефона
 const phoneInput = document.querySelector('input[name="phone"]');
@@ -23,6 +23,26 @@ const validateForm = (form) => {
   return errors;
 };
 
+// Очистка сообщений об ошибках
+const clearErrors = (form) => {
+  const errorMessages = form.querySelectorAll('.error-message');
+  errorMessages.forEach(msg => msg.remove());
+  const inputs = form.querySelectorAll('input, textarea');
+  inputs.forEach(input => input.style.borderColor = '');
+};
+
+// Показ сообщения об ошибке под полем
+const showFieldError = (field, message) => {
+  const error = document.createElement('div');
+  error.className = 'error-message';
+  error.style.color = 'red';
+  error.textContent = message;
+  field.style.borderColor = 'red';
+  if (!field.nextElementSibling || !field.nextElementSibling.classList.contains('error-message')) {
+    field.insertAdjacentElement('afterend', error);
+  }
+};
+
 // Закрытие модального окна
 const closeModal = () => {
   const modal = document.querySelector('.modal');
@@ -33,18 +53,25 @@ const closeModal = () => {
 
 // Обработка отправки формы
 const form = document.getElementById('contact-form');
-const submitButton = document.getElementById('submit-button');
 
-form.addEventListener('input', () => {
-  const errors = validateForm(form);
-  submitButton.disabled = Object.keys(errors).length > 0;
-});
-
+// Проверка полей формы при отправке
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
+  clearErrors(form);
   const errors = validateForm(form);
+  let hasErrors = false;
   if (Object.keys(errors).length > 0) {
-    showStatusMessage("Пожалуйста, исправьте следующие ошибки: " + Object.values(errors).join(", "), 'error');
+    Object.keys(errors).forEach(key => {
+      const field = form[key];
+      if (field) {
+        showFieldError(field, errors[key]);
+        hasErrors = true;
+      }
+    });
+    showStatusMessage("Пожалуйста, исправьте ошибки в форме.", 'error');
+  }
+  // Если есть ошибки, прекращаем выполнение
+  if (hasErrors) {
     return;
   }
   const formData = new FormData(form);
@@ -58,7 +85,7 @@ form.addEventListener('submit', async (e) => {
       body: JSON.stringify(data),
     });
     const result = await response.json();
-    closeModal();  // Закрываем модальное окно при отправке формы
+    closeModal();
     if (result.status === 'success') {
       form.reset();
       showStatusMessage(result.msg, 'success');
@@ -66,7 +93,7 @@ form.addEventListener('submit', async (e) => {
       Object.keys(result.fields).forEach(key => {
         const input = form[key];
         if (input) {
-          input.style.borderColor = 'red';
+          showFieldError(input, result.fields[key]);
         }
       });
       showStatusMessage("Некорректные данные, попробуйте снова.", 'error');
@@ -78,14 +105,10 @@ form.addEventListener('submit', async (e) => {
 });
 
 // Показ модального окна
-const showModal = (message) => {
+const showModal = () => {
   const modal = document.querySelector('.modal');
-  const modalMessage = modal.querySelector('.modal-content');
-  if (modalMessage.querySelector('.modal-message')) {
-    modalMessage.querySelector('.modal-message').textContent = message;
-  } else {
-    modalMessage.insertAdjacentHTML('afterbegin', `<div class="modal-message">${message}</div>`);
-  }
+  form.reset();
+  clearErrors(form);
   modal.style.display = 'block';
 };
 
@@ -112,7 +135,4 @@ const showStatusMessage = (message, type) => {
 };
 
 // Открытие модального окна по клику на кнопку
-document.querySelector('.open-modal').addEventListener('click', () => {
-  const modal = document.querySelector('.modal');
-  modal.style.display = 'block';
-});
+document.querySelector('.open-modal').addEventListener('click', showModal);
