@@ -1,32 +1,42 @@
-const express = require('express');  
-const cors = require('cors');  
-const bodyParser = require('body-parser');  
+const express = require("express");
+const cors = require("cors");
+const app = express();
 
-const app = express();  
-const PORT = 9090;  
+const port = 9090;
 
-app.use(cors());  
-app.use(bodyParser.json());  
+app.use(cors());
 
-app.get('/api/ping', (req, res) => {  
-    res.send('Server is running');  
-});  
+app.post("/api/registration", (req, res) => {
+  if (Math.random() > 0.5) {
+    res.statusCode = 400;
 
-app.post('/api/registration', (req, res) => {  
-    const success = Math.random() > 0.5;  
-    
-    if (success) {  
-        res.status(200).json({ status: 'success', msg: 'Ваша заявка успешно отправлена' });  
-    } else {  
-        res.status(400).json({  
-            status: 'error',  
-            fields: {  
-                inputName: 'Ошибка сервера. Попробуйте еще раз.'  
-            }  
-        });  
-    }  
-});  
+    setTimeout(() => {
+      res.send({
+        status: "error",
+        message: "Возникла ошибка при оформлении заявки",
+      });
+    }, Math.random() * 1000);
 
-app.listen(PORT, () => {  
-    console.log(`Server is running on http://localhost:${PORT}`);  
+    return;
+  }
+
+  setTimeout(() => {
+    res.statusCode = 200;
+    res.send({
+      status: "success",
+      message: "Ваша заявка успешно отправлена",
+    });
+  }, Math.random() * 1000);
+});
+
+app.get("/api/ping", (req, res) => {
+    res.statusCode = 200;
+    res.send({
+        status: "success",
+        message: "Server is ready",
+    });
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
 });

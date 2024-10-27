@@ -24,7 +24,7 @@ html {
 body {
   font-family: 'Montserrat', sans-serif;
   font-weight: 300;
-  font-size: 16px;
+  font-size: 10px;
   min-width: 320px;
   overflow-x: hidden;
   color: $textButton-color;
@@ -32,7 +32,6 @@ body {
 
 body.modal-open {  
   overflow: hidden;
-  padding-right: 15px;
 }  
 
 a {
@@ -60,6 +59,44 @@ img {
 html, body {
   min-height: 150vh;
 }
+
+/* Для WebKit браузеров (Chrome, Safari, Edge) */  
+::-webkit-scrollbar {  
+  width: 7px;  
+}  
+
+::-webkit-scrollbar-track {  
+  background: $background-color;  
+  border-radius: 7px;  
+}  
+
+::-webkit-scrollbar-thumb {  
+  background: $primary-color;  
+  border-radius: 7px;  
+}  
+
+::-webkit-scrollbar-thumb:hover {  
+  background: $primary-color-hover;  
+}  
+
+/* Для Firefox */  
+.scrollbar {  
+  scrollbar-width: thin;
+  scrollbar-color: $primary-color $background-color;
+}  
+
+/* Дополнительные стили для вас */  
+.scrollbar::-webkit-scrollbar {  
+  width: 7px;  
+}  
+
+.scrollbar::-webkit-scrollbar-thumb {  
+  background: $primary-color;  
+}  
+
+.scrollbar::-webkit-scrollbar-thumb:hover {  
+  background: $primary-color-hover;  
+}  
 
 .container {
   max-width: 1200px;
@@ -118,6 +155,7 @@ html, body {
     padding: 10px;
     border-radius: 5px;
     text-align: center;
+    font-size: 24px !important;
   }
 
   &__input {
