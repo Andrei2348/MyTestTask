@@ -15,11 +15,11 @@ const validateForm = (form) => {
   const phone = form.phone.value.trim();  
   const message = form.message.value.trim();  
 
-  if (!name) errors.name = "Поле обязательно к заполнению"; // Сообщение для имени  
-  if (!email) errors.email = "Поле обязательно к заполнению"; // Сообщение для email  
-  if (email && !/\S+@\S+\.\S+/.test(email)) errors.email = "Введите корректный E-mail"; // Проверка корректности email  
-  if (!phone) errors.phone = "Поле обязательно к заполнению"; // Сообщение для телефона  
-  if (!message) errors.message = "Поле обязательно к заполнению"; // Сообщение для сообщения   
+  if (!name) errors.name = "Поле обязательно к заполнению"; 
+  if (!email) errors.email = "Поле обязательно к заполнению"; 
+  if (email && !/\S+@\S+\.\S+/.test(email)) errors.email = "Введите корректный E-mail";
+  if (!phone) errors.phone = "Поле обязательно к заполнению";
+  if (!message) errors.message = "Поле обязательно к заполнению"; 
 
   return errors;  
 };  
